@@ -19,16 +19,3 @@ class BPE_token(object):
         if not os.path.exists(location):
             os.makedirs(location)
         self.tokenizer.model.save(location, prefix)
-
-# Example Usage:
-bpe_tokenizer = BPE_token()
-
-# Replace 'path/to/dataset' with the path to your dataset (a directory containing text files).
-dataset_path = "./dataset/dataset.txt"
-dataset_files = [dataset_path]
-
-# Train the BPE tokenizer with the Croatian alphabet
-bpe_tokenizer.train_bpe(dataset_files, vocab_size=10000)  # Adjust vocab_size as needed
-
-save_location = './tokenized_data/'
-bpe_tokenizer.save_tokenizer(save_location, prefix='bpe_tokens')
