@@ -26,4 +26,6 @@ with tf.device('GPU:1'):
       pad_token_id=tokenizer.eos_token_id
     )
 
-    print(tokenizer.decode(beam_output[0]).split('.')[0] + '.')
+    # print(tokenizer.decode(beam_output[0]).split('.')[0] + '.')
+    output = tokenizer.decode(beam_output[0])[len(text):].split('.')
+    print(output[0] + '. ' + output[1] + '.')
