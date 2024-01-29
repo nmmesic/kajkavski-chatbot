@@ -5,7 +5,7 @@ from transformers import GPT2Config, TFGPT2LMHeadModel, GPT2Tokenizer
 import tensorflow as tf
 
 
-OUTPUT_DIR_PATH = '/home/jnovosel/kajkavski-chatbot/model_bn_custom_noah'
+OUTPUT_DIR_PATH = 'model_bn_custom_noah'
 
 with tf.device('GPU:1'):
   tokenizer = GPT2Tokenizer.from_pretrained(str(OUTPUT_DIR_PATH))
