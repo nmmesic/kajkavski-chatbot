@@ -3,10 +3,16 @@ from tokenize_BPE import BPE_token
 import tensorflow as tf
 from transformers import GPT2Config, TFGPT2LMHeadModel, GPT2Tokenizer
 from transformers import WEIGHTS_NAME, CONFIG_NAME
+from pathlib import Path
 
 block_size = 100
 BATCH_SIZE = 16
 BUFFER_SIZE = 1000
+
+DATASET_PATH = Path('/home/jnovosel/kajkavski-chatbot/dataset/dataset.txt')
+TOKENIZED_PATH = Path('/home/jnovosel/kajkavski-chatbot/tokenized_data')
+OUTPUT_DIR_PATH = Path('/home/jnovosel/kajkavski-chatbot/model_bn_custom')
+
 
 def tokenizeData(tokenizer, paths):
     single_string = ''
@@ -70,7 +76,7 @@ def train(model, string_tokenized):
     print("am here")
     history = model.fit(dataset, epochs=num_epoch)
 
-def save(model, tokenizer, output_dir = './model_bn_custom/'):
+def save(model, tokenizer, output_dir = OUTPUT_DIR_PATH):
     # creating directory if it is not present
 
     if not os.path.exists(output_dir):
@@ -88,11 +94,11 @@ def save(model, tokenizer, output_dir = './model_bn_custom/'):
     tokenizer.save_pretrained(output_dir)
 
 def main():
-    initializeTokenizer('./dataset/dataset.txt', './tokenized_data/')
+    initializeTokenizer(str(DATASET_PATH), str(TOKENIZED_PATH))
 
-    model, tokenizer = initializeModel('./tokenized_data/')
+    model, tokenizer = initializeModel(str(TOKENIZED_PATH))
 
-    string_tokenized = tokenizeData(tokenizer, ['./dataset/dataset.txt'])
+    string_tokenized = tokenizeData(tokenizer, [str(DATASET_PATH)])
 
     train(model, string_tokenized)
 
